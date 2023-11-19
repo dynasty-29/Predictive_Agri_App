@@ -135,7 +135,7 @@ def main():
 # Animal prediction section
     st.title("Animal Prediction App")
 
-    # Streamlit form for animal prediction
+        # Streamlit form for animal prediction
     breed = st.selectbox("Select Breed", df_animal['Breed'].unique())
     age = st.slider("Age", 1, 10, 5)
     nutrition_protein = st.slider("Nutrition Protein", 0.0, 100.0, 50.0)
