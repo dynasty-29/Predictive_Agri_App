@@ -80,13 +80,9 @@ def make_personalized_recommendations(crop_type):
 
 # Streamlit app
 def main():
-    st.set_page_config(page_title='Agricultural Analytics Dashboard')
+    st.set_page_config(page_title='Agricultural Prediction Analytics Dashboard')
 
-    st.title('Agricultural Analytics Dashboard')
-
-    # Display distribution of crops by type
-    st.header('Distribution of Crops by Type')
-    plot_crops_by_type()
+    st.title('Agricultural Prediction Analytics Dashboard')
 
     # Streamlit app title for prediction
     st.title("Crop Type Prediction App")
