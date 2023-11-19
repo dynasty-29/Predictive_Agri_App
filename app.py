@@ -85,7 +85,7 @@ def main():
     st.title('Animal and Crop Farming Prediction App')
 
     # Layout for crop prediction
-    st.title("Crop Type Prediction App")
+    st.sidebar.title("Crop Type Prediction Values")
 
     # Sidebar for environmental data input
     st.sidebar.subheader("Enter Environmental Data:")
