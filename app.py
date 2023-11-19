@@ -156,30 +156,32 @@ def main():
     if st.button("Predict Animal"):
         # Prepare input data for animal prediction
         input_data_animal = {
-            "Breed": le_animal.transform([breed])[0],
+            "Breed": le_animal.transform([breed])[0] if breed in le_animal.classes_ else -1,
             "Age": age,
             "Nutrition_Protein": nutrition_protein,
             "Nutrition_Carbohydrates": nutrition_carbohydrates,
             "Nutrition_Minerals": nutrition_minerals,
-            "Health_Status": le_animal.transform([health_status])[0],
-            "Lactation_Stage": le_animal.transform([lactation_stage])[0],
-            "Reproductive_Status": le_animal.transform([reproductive_status])[0],
-            "Milking_Frequency": le_animal.transform([milking_frequency])[0],
+            "Health_Status": le_animal.transform([health_status])[0] if health_status in le_animal.classes_ else -1,
+            "Lactation_Stage": le_animal.transform([lactation_stage])[0] if lactation_stage in le_animal.classes_ else -1,
+            "Reproductive_Status": le_animal.transform([reproductive_status])[0] if reproductive_status in le_animal.classes_ else -1,
+            "Milking_Frequency": le_animal.transform([milking_frequency])[0] if milking_frequency in le_animal.classes_ else -1,
             "Environmental_Temperature": env_temperature,
             "Environmental_Humidity": env_humidity,
-            "Environmental_Housing": le_animal.transform([env_housing])[0],
+            "Environmental_Housing": le_animal.transform([env_housing])[0] if env_housing in le_animal.classes_ else -1,
             "Previous_Milk_Production": prev_milk_production,
         }
-    
+
         # Convert input data to a DataFrame for animal prediction
         input_df_animal = pd.DataFrame([input_data_animal])
-    
+
         # Make the animal prediction
         prediction_milk_production = model_animal.predict(input_df_animal)[0]
-    
+
         # Display the animal prediction at the center
         st.title("Animal Prediction Result")
         st.write(f"Predicted Milk Production: {prediction_milk_production:.2f} Litres")
+
+
 
    
 if __name__ == '__main__':
