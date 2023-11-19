@@ -80,7 +80,7 @@ def make_personalized_recommendations(crop_type):
 
 # Streamlit app
 def main():
-    st.set_page_config(page_title='Animal and Crop Farming Prediction App')
+    st.set_page_config(page_title='Animal and Crop Farming Prediction')
 
     st.title('Animal and Crop Farming Prediction App')
 
