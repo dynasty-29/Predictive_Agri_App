@@ -136,9 +136,7 @@ def main():
     st.title("Animal Prediction App")
     
         # Streamlit form for animal prediction
-    breed_le = LabelEncoder()
-    breed_le.fit(df_animal['Breed'])
-    breed_options = breed_le.inverse_transform(range(len(breed_le.classes_)))
+    breed_options = df_animal['Breed'].unique()
     breed = st.selectbox("Select Breed", breed_options)
     
     health_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Health_Status'].unique())}
