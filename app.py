@@ -141,33 +141,13 @@ def main():
     # Streamlit form for animal prediction
 
     with right_column:
-        breed_le = LabelEncoder()
-        breed_le.fit(df_animal['Breed'])
-        breed_options = breed_le.classes_
-        selected_breed_index = st.selectbox("Select Breed", range(len(breed_options)), format_func=lambda x: breed_options[x])
-        breed = breed_options[selected_breed_index]
-        
-        health_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Health_Status'].unique())}
-        selected_health_status = st.selectbox("Select Health Status", list(health_status_mapping.values()))
-        health_status = list(health_status_mapping.keys())[list(health_status_mapping.values()).index(selected_health_status)]
-    
-        lactation_stage_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Lactation_Stage'].unique())}
-        selected_lactation_stage = st.selectbox("Select Lactation_Stage", list(lactation_stage_mapping.values()))
-        lactation_stage = list(lactation_stage_mapping.keys())[list(lactation_stage_mapping.values()).index(selected_lactation_stage)]
-    
-        reproductive_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Reproductive_Status'].unique())}
-        selected_reproductive_status = st.selectbox("Select Reproductive_Status", list(reproductive_status_mapping.values()))
-        reproductive_status = list(reproductive_status_mapping.keys())[list(reproductive_status_mapping.values()).index(selected_reproductive_status)]
-    
-        milking_frequency_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Milking_Frequency'].unique())}
-        selected_milking_frequency = st.selectbox("Select Milking_Frequency", list(milking_frequency_mapping.values()))
-        milking_frequency = list(milking_frequency_mapping.keys())[list(milking_frequency_mapping.values()).index(selected_milking_frequency)]
-    
-        env_housing_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Environmental_Housing'].unique())}
-        selected_env_housing = st.selectbox("Select Environmental_Housing", list(env_housing_mapping.values()))
-        env_housing = list(env_housing_mapping.keys())[list(env_housing_mapping.values()).index(selected_env_housing)]
-          
-        age = st.slider("Age", 1, 10, 5)
+        breed = st.sidebar.slider("Breed Type",["Ayrshire","Holstein","Guernsey", "Jersey"])
+        health_status = st.sidebar.slider("Health Status",["Healthy", "Unhealthy"])
+        lactation_stage = st.sidebar.slider("Lactation Stage",["Mid Lactation","Early Lactation","Late Lactation"])
+        reproductive_status = st.sidebar.slider("Reproductive Status",["Calving","Post-Calving","Pregnant"])
+        milking_frequency = st.sidebar.slider("Milking Frequency",["Three times a day","Two times a day"])
+        env_housing = st.sidebar.slider("Environmental Housing",["Barn","Pasture"])
+        age = st.sidebar.slider("Age", 1, 10, 5)
         nutrition_protein = st.slider("Nutrition Protein", 0.0, 100.0, 50.0)
         nutrition_carbohydrates = st.slider("Nutrition Carbohydrates", 0.0, 100.0, 50.0)
         nutrition_minerals = st.slider("Nutrition Minerals", 0.0, 100.0, 50.0)
