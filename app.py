@@ -137,7 +137,9 @@ def main():
     
         # Streamlit form for animal prediction
     breed_options = df_animal['Breed'].unique()
-    breed = st.selectbox("Select Breed", breed_options)
+    breed_mapping = {i: breed for i, breed in enumerate(breed_options)}
+    selected_breed_index = st.selectbox("Select Breed", range(len(breed_mapping)), format_func=lambda x: breed_mapping[x])
+    breed = breed_options[selected_breed_index]
     
     health_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Health_Status'].unique())}
     selected_health_status = st.selectbox("Select Health Status", list(health_status_mapping.values()))
