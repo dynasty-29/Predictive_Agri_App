@@ -138,12 +138,12 @@ def main():
     st.title("Animal Prediction App")
     
        
-    breed = st.sidebar.slider("Breed Type",["Ayrshire","Holstein","Guernsey", "Jersey"])
-    health_status = st.sidebar.slider("Health Status",["Healthy", "Unhealthy"])
-    lactation_stage = st.sidebar.slider("Lactation Stage",["Mid Lactation","Early Lactation","Late Lactation"])
-    reproductive_status = st.sidebar.slider("Reproductive Status",["Calving","Post-Calving","Pregnant"])
-    milking_frequency = st.sidebar.slider("Milking Frequency",["Three times a day","Two times a day"])
-    env_housing = st.sidebar.slider("Environmental Housing",["Barn","Pasture"])
+    breed = st.sidebar.selectbox("Breed Type",["Ayrshire","Holstein","Guernsey", "Jersey"])
+    health_status = st.sidebar.selectbox("Health Status",["Healthy", "Unhealthy"])
+    lactation_stage = st.sidebar.selectbox("Lactation Stage",["Mid Lactation","Early Lactation","Late Lactation"])
+    reproductive_status = st.sidebar.selectbox("Reproductive Status",["Calving","Post-Calving","Pregnant"])
+    milking_frequency = st.sidebar.selectbox("Milking Frequency",["Three times a day","Two times a day"])
+    env_housing = st.sidebar.selectbox("Environmental Housing",["Barn","Pasture"])
     age = st.sidebar.slider("Age", 1, 10, 5)
     nutrition_protein = st.slider("Nutrition Protein", 0.0, 100.0, 50.0)
     nutrition_carbohydrates = st.slider("Nutrition Carbohydrates", 0.0, 100.0, 50.0)
