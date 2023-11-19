@@ -135,12 +135,12 @@ def main():
 # Animal prediction section
     st.title("Animal Prediction App")
     
-    # Streamlit form for animal prediction
+        # Streamlit form for animal prediction
     breed_le = LabelEncoder()
     breed_le.fit(df_animal['Breed'])
-    breed_mapping = {i: breed for i, breed in enumerate(breed_le.classes_)}
-    selected_breed_index = st.selectbox("Select Breed", range(len(breed_le.classes_)), format_func=lambda x: breed_mapping[x])
-    breed = breed_le.transform([breed_mapping[selected_breed_index]])[0]
+    breed_options = breed_le.classes_.tolist()
+    breed = st.selectbox("Select Breed", breed_options, format_func=lambda x: breed_le.transform([x])[0])
+
 
     
     health_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Health_Status'].unique())}
@@ -162,19 +162,13 @@ def main():
     env_housing_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Environmental_Housing'].unique())}
     selected_env_housing = st.selectbox("Select Environmental_Housing", list(env_housing_mapping.values()))
     env_housing = list(env_housing_mapping.keys())[list(env_housing_mapping.values()).index(selected_env_housing)]
-    
-    
-    
+      
     age = st.slider("Age", 1, 10, 5)
     nutrition_protein = st.slider("Nutrition Protein", 0.0, 100.0, 50.0)
     nutrition_carbohydrates = st.slider("Nutrition Carbohydrates", 0.0, 100.0, 50.0)
     nutrition_minerals = st.slider("Nutrition Minerals", 0.0, 100.0, 50.0)
-    lactation_stage = st.selectbox("Select Lactation Stage", list(lactation_stage_mapping.values()))
-    reproductive_status = st.selectbox("Select Reproductive Status", list(reproductive_status_mapping.values()))
-    milking_frequency = st.selectbox("Select Milking Frequency", list(milking_frequency_mapping.values()))
     env_temperature = st.slider("Environmental Temperature", 0.0, 40.0, 25.0)
     env_humidity = st.slider("Environmental Humidity", 0, 100, 60)
-    env_housing = st.selectbox("Select Environmental Housing", list(env_housing_mapping.values()))
     prev_milk_production = st.slider("Previous Milk Production (Litres)", 0.0, 20.0, 5.0)
     
     # Prepare input data for animal prediction
