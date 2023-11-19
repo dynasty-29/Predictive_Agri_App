@@ -154,17 +154,33 @@ def main():
     # env_housing = st.selectbox("Select Environmental Housing", df_animal['Environmental_Housing'].unique())
     # prev_milk_production = st.slider("Previous Milk Production (Litres)", 0.0, 20.0, 5.0)
 
-       # Streamlit form for animal prediction
+    # Streamlit form for animal prediction
     breed_mapping = {numeric_value: breed for numeric_value, breed in enumerate(df_animal['Breed'].unique())}
     selected_breed = st.selectbox("Select Breed", list(breed_mapping.values()))
     breed = list(breed_mapping.keys())[list(breed_mapping.values()).index(selected_breed)]
     
-    # Repeat the above mapping for other categorical columns
+    
     health_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Health_Status'].unique())}
     selected_health_status = st.selectbox("Select Health Status", list(health_status_mapping.values()))
     health_status = list(health_status_mapping.keys())[list(health_status_mapping.values()).index(selected_health_status)]
+
+    lactation_stage_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Lactation_Stage'].unique())}
+    selected_lactation_stage = st.selectbox("Select Lactation_Stage", list(lactation_stage_mapping.values()))
+    lactation_stage = list(lactation_stage_mapping.keys())[list(lactation_stage_mapping.values()).index(selected_lactation_stage)]
+
+    reproductive_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Reproductive_Status'].unique())}
+    selected_reproductive_status = st.selectbox("Select Reproductive_Status", list(reproductive_status_mapping.values()))
+    reproductive_status = list(reproductive_status_mapping.keys())[list(reproductive_status_mapping.values()).index(selected_reproductive_status)]
+
+    milking_frequency_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Milking_Frequency'].unique())}
+    selected_milking_frequency = st.selectbox("Select Milking_Frequency", list(milking_frequency_mapping.values()))
+    milking_frequency = list(milking_frequency_mapping.keys())[list(milking_frequency_mapping.values()).index(selected_milking_frequency)]
+
+    env_housing_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Environmental_Housing'].unique())}
+    selected_env_housing = st.selectbox("Select Environmental_Housing", list(env_housing_mapping.values()))
+    env_housing = list(env_housing_mapping.keys())[list(env_housing_mapping.values()).index(selected_env_housing)]
     
-    # Repeat for other categorical columns...
+    
     
     age = st.slider("Age", 1, 10, 5)
     nutrition_protein = st.slider("Nutrition Protein", 0.0, 100.0, 50.0)
