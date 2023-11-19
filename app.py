@@ -136,7 +136,10 @@ def main():
     st.title("Animal Prediction App")
 
         # Streamlit form for animal prediction
-    breed = st.selectbox("Select Breed", df_animal['Breed'].unique())
+    breed_mapping = {breed: numeric_value for numeric_value, breed in enumerate(df_animal['Breed'].unique())}
+    selected_breed = st.selectbox("Select Breed", df_animal['Breed'].unique())
+    breed = breed_mapping[selected_breed]
+    #
     age = st.slider("Age", 1, 10, 5)
     nutrition_protein = st.slider("Nutrition Protein", 0.0, 100.0, 50.0)
     nutrition_carbohydrates = st.slider("Nutrition Carbohydrates", 0.0, 100.0, 50.0)
