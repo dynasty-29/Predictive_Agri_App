@@ -89,7 +89,7 @@ def main():
 
     # Sidebar for environmental data input
     st.sidebar.subheader("Enter Environmental Data:")
-    temperature = st.sidebar.slider("Temperature (°C)", 15.0, 39.0, 25.0)
+    temperature = st.leftsidebar.slider("Temperature (°C)", 15.0, 39.0, 25.0)
     humidity = st.sidebar.slider("Humidity (%)", 0, 100, 60)
     precipitation = st.sidebar.slider("Precipitation", 0.0, 100.0, 50.0)
     wind_speed = st.sidebar.slider("Wind Speed", 0.0, 20.0, 10.0)
@@ -138,7 +138,7 @@ def main():
     st.title("Animal Prediction App")
     
        
-    breed = st.sidebar.selectbox("Breed Type",["Ayrshire","Holstein","Guernsey", "Jersey"])
+    breed = st.rightsidebar.selectbox("Breed Type",["Ayrshire","Holstein","Guernsey", "Jersey"])
     health_status = st.sidebar.selectbox("Health Status",["Healthy", "Unhealthy"])
     lactation_stage = st.sidebar.selectbox("Lactation Stage",["Mid Lactation","Early Lactation","Late Lactation"])
     reproductive_status = st.sidebar.selectbox("Reproductive Status",["Calving","Post-Calving","Pregnant"])
