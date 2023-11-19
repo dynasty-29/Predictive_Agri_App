@@ -84,26 +84,26 @@ def main():
 
     st.title('Animal and Crop Farming Prediction App')
 
-    # Streamlit app title for prediction
+    # Layout for crop prediction
     st.title("Crop Type Prediction App")
 
-    # Streamlit form for environmental data
+    # Sidebar for environmental data input
     st.sidebar.subheader("Enter Environmental Data:")
-    temperature = st.slider("Temperature (°C)", 15.0, 39.0, 25.0)
-    humidity = st.slider("Humidity (%)", 0, 100, 60)
-    precipitation = st.slider("Precipitation", 0.0, 100.0, 50.0)
-    wind_speed = st.slider("Wind Speed", 0.0, 20.0, 10.0)
-    solar_radiation = st.slider("Solar Radiation", 0.0, 2000.0, 800.0)
+    temperature = st.sidebar.slider("Temperature (°C)", 15.0, 39.0, 25.0)
+    humidity = st.sidebar.slider("Humidity (%)", 0, 100, 60)
+    precipitation = st.sidebar.slider("Precipitation", 0.0, 100.0, 50.0)
+    wind_speed = st.sidebar.slider("Wind Speed", 0.0, 20.0, 10.0)
+    solar_radiation = st.sidebar.slider("Solar Radiation", 0.0, 2000.0, 800.0)
 
     # Streamlit form for optional soil nutrient levels
-    st.subheader("Enter Optional Soil Nutrient Levels (Leave blank if not available):")
-    nitrogen_level = st.slider("Nitrogen Level", 0, 100, 50)
-    phosphorus_level = st.slider("Phosphorus Level", 0, 100, 50)
-    potassium_level = st.slider("Potassium Level", 0, 100, 50)
-    ph_level = st.slider("Soil pH", 0.0, 14.0, 7.0)
+    st.sidebar.subheader("Enter Optional Soil Nutrient Levels (Leave blank if not available):")
+    nitrogen_level = st.sidebar.slider("Nitrogen Level", 0, 100, 50)
+    phosphorus_level = st.sidebar.slider("Phosphorus Level", 0, 100, 50)
+    potassium_level = st.sidebar.slider("Potassium Level", 0, 100, 50)
+    ph_level = st.sidebar.slider("Soil pH", 0.0, 14.0, 7.0)
 
-        # Button to trigger prediction
-    if st.button("Predict Crop"):
+    # Button to trigger crop prediction
+    if st.sidebar.button("Predict Crop"):
         # Prepare input data for prediction
         input_data = {
             "Temperature": temperature,
@@ -116,23 +116,25 @@ def main():
             "Potassium_Content": potassium_level,
             "Soil_pH": ph_level,
         }
-    
+
         # Ensure that input_data is not empty or None
         if input_data:
             # Convert input data to a DataFrame
             input_df = pd.DataFrame([input_data])
-    
+
             # Make the prediction
             prediction_numeric = model.predict(input_df)[0]
-    
+
             # Convert the numeric prediction back to the original crop type name
             prediction_name = le.inverse_transform([prediction_numeric])[0]
-        
+
+            # Display the prediction at the center
+            st.title("Crop Prediction Result")
             st.write(f"Predicted Crop Type: {prediction_name}")
         else:
             st.write("Input data is empty. Please provide values.")
 
-# Animal prediction section
+    # Animal prediction section
     st.title("Animal Prediction App")
     
         # Streamlit form for animal prediction
@@ -170,30 +172,35 @@ def main():
     env_humidity = st.slider("Environmental Humidity", 0, 100, 60)
     prev_milk_production = st.slider("Previous Milk Production (Litres)", 0.0, 20.0, 5.0)
     
-    # Prepare input data for animal prediction
-    input_data_animal = {
-        "Breed": breed,
-        "Age": age,
-        "Nutrition_Protein": nutrition_protein,
-        "Nutrition_Carbohydrates": nutrition_carbohydrates,
-        "Nutrition_Minerals": nutrition_minerals,
-        "Health_Status": health_status,
-        "Lactation_Stage": lactation_stage,
-        "Reproductive_Status": reproductive_status,
-        "Milking_Frequency": milking_frequency,
-        "Environmental_Temperature": env_temperature,
-        "Environmental_Humidity": env_humidity,
-        "Environmental_Housing": env_housing,
-        "Previous_Milk_Production": prev_milk_production,
-    }
     
-    # Convert input data to a DataFrame for animal prediction
-    input_df_animal = pd.DataFrame([input_data_animal])
-    
-    # Make the animal prediction
-    prediction_milk_production = model_animal.predict(input_df_animal)[0]
-    
-    st.write(f"Predicted Milk Production: {prediction_milk_production:.2f} Litres")
+    # Button to trigger animal prediction
+    if st.button("Predict Animal"):
+        # Prepare input data for animal prediction
+        input_data_animal = {
+            "Breed": breed,
+            "Age": age,
+            "Nutrition_Protein": nutrition_protein,
+            "Nutrition_Carbohydrates": nutrition_carbohydrates,
+            "Nutrition_Minerals": nutrition_minerals,
+            "Health_Status": health_status,
+            "Lactation_Stage": lactation_stage,
+            "Reproductive_Status": reproductive_status,
+            "Milking_Frequency": milking_frequency,
+            "Environmental_Temperature": env_temperature,
+            "Environmental_Humidity": env_humidity,
+            "Environmental_Housing": env_housing,
+            "Previous_Milk_Production": prev_milk_production,
+        }
+
+        # Convert input data to a DataFrame for animal prediction
+        input_df_animal = pd.DataFrame([input_data_animal])
+
+        # Make the animal prediction
+        prediction_milk_production = model_animal.predict(input_df_animal)[0]
+
+        # Display the animal prediction at the center
+        st.title("Animal Prediction Result")
+        st.write(f"Predicted Milk Production: {prediction_milk_production:.2f} Litres")
 
    
 if __name__ == '__main__':
