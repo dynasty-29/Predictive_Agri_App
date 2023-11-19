@@ -135,9 +135,9 @@ def main():
             st.write("Input data is empty. Please provide values.")
 
     # Animal prediction section
-    st.right_sidebar.title("Animal Prediction Values")
+    st.sidebar.title("Animal Prediction Values")
     
-    breed = st.right_sidebar.selectbox("Breed Type",["Ayrshire","Holstein","Guernsey", "Jersey"])
+    breed = st.sidebar.selectbox("Breed Type",["Ayrshire","Holstein","Guernsey", "Jersey"])
     health_status = st.sidebar.selectbox("Health Status",["Healthy", "Unhealthy"])
     lactation_stage = st.sidebar.selectbox("Lactation Stage",["Mid Lactation","Early Lactation","Late Lactation"])
     reproductive_status = st.sidebar.selectbox("Reproductive Status",["Calving","Post-Calving","Pregnant"])
