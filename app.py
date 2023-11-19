@@ -103,7 +103,7 @@ def main():
     ph_level = st.sidebar.slider("Soil pH", 0.0, 14.0, 7.0)
 
     # Button to trigger crop prediction
-    if st.sidebar.button("Predict Crop"):
+    if st.button("Predict Crop"):
         # Prepare input data for prediction
         input_data = {
             "Temperature": temperature,
@@ -145,16 +145,16 @@ def main():
     milking_frequency = st.sidebar.selectbox("Milking Frequency",["Three times a day","Two times a day"])
     env_housing = st.sidebar.selectbox("Environmental Housing",["Barn","Pasture"])
     age = st.sidebar.slider("Age", 1, 10, 5)
-    nutrition_protein = st.slider("Nutrition Protein", 0.0, 100.0, 50.0)
-    nutrition_carbohydrates = st.slider("Nutrition Carbohydrates", 0.0, 100.0, 50.0)
-    nutrition_minerals = st.slider("Nutrition Minerals", 0.0, 100.0, 50.0)
-    env_temperature = st.slider("Environmental Temperature", 0.0, 40.0, 25.0)
-    env_humidity = st.slider("Environmental Humidity", 0, 100, 60)
-    prev_milk_production = st.slider("Previous Milk Production (Litres)", 0.0, 20.0, 5.0)
+    nutrition_protein = st.sidebar.slider("Nutrition Protein", 0.0, 100.0, 50.0)
+    nutrition_carbohydrates = st.sidebar.slider("Nutrition Carbohydrates", 0.0, 100.0, 50.0)
+    nutrition_minerals = st.sidebar.slider("Nutrition Minerals", 0.0, 100.0, 50.0)
+    env_temperature = st.sidebar.slider("Environmental Temperature", 0.0, 40.0, 25.0)
+    env_humidity = st.sidebar.slider("Environmental Humidity", 0, 100, 60)
+    prev_milk_production = st.sidebar.slider("Previous Milk Production (Litres)", 0.0, 20.0, 5.0)
         
     
     # Button to trigger animal prediction
-    if st.sidebar.button("Predict Animal"):
+    if st.button("Predict Animal"):
         # Prepare input data for animal prediction
         input_data_animal = {
             "Breed": breed,
