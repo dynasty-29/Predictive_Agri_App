@@ -96,19 +96,19 @@ def main():
     ph_level = st.slider("Soil pH", 0.0, 14.0, 7.0)
 
     # Button to trigger prediction
-if st.button("Predict Crop"):
-    # Prepare input data for prediction
-    input_data = {
-        "Temperature": temperature,
-        "Humidity": humidity,
-        "Precipitation": precipitation,
-        "Wind_Speed": wind_speed,
-        "Solar_Radiation": solar_radiation,
-        "Nitrogen_Content": nitrogen_level,
-        "Phosphorous_Content": phosphorus_level,
-        "Potassium_Content": potassium_level,
-        "Soil_pH": ph_level,
-    }
+    if st.button("Predict Crop"):
+        # Prepare input data for prediction
+        input_data = {
+            "Temperature": temperature,
+            "Humidity": humidity,
+            "Precipitation": precipitation,
+            "Wind_Speed": wind_speed,
+            "Solar_Radiation": solar_radiation,
+            "Nitrogen_Content": nitrogen_level,
+            "Phosphorous_Content": phosphorus_level,
+            "Potassium_Content": potassium_level,
+            "Soil_pH": ph_level,
+        }
 
     # Convert input data to a DataFrame
     input_df = pd.DataFrame([input_data])
