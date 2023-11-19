@@ -59,28 +59,7 @@ model_animal = GradientBoostingRegressor()
 model_animal.fit(X_train_animal, y_train_animal)
 
 
-# Function to plot distribution of crops by type
-def plot_crops_by_type():
-    # Decode the encoded Crop_Type back to original labels
-    df['Crop_Type'] = le.inverse_transform(df['Crop_Type'])
-
-    crop_type_counts = df['Crop_Type'].value_counts()
-    crop_type_counts.plot(kind='bar', color='blue')
-    plt.xlabel('Crop Type')
-    plt.ylabel('Count')
-    plt.title('Distribution of Crops by Type')
-    st.pyplot()  # Display the plot in Streamlit
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-
-# Function to plot distribution of milk production
-def plot_milk_production_distribution():
-    plt.hist(df_animal['Milk_Production'], bins=20, color='blue', edgecolor='black')
-    plt.xlabel('Milk Production (Litres)')
-    plt.ylabel('Count')
-    plt.title('Distribution of Milk Production')
-    st.pyplot()  # Display the plot in Streamlit
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    
+   
 # Function to make personalized recommendations
 def make_personalized_recommendations(crop_type):
     # Check if the crop type exists in the dataset
@@ -202,9 +181,6 @@ def main():
 
         st.write(f"Predicted Milk Production: {prediction_milk_production:.2f} Litres")
 
-    # Display distribution of milk production
-    st.header('Distribution of Milk Production')
-    plot_milk_production_distribution()
-
+   
 if __name__ == '__main__':
     main()
