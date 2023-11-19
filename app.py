@@ -134,31 +134,12 @@ def main():
 
 # Animal prediction section
     st.title("Animal Prediction App")
-
-    # Streamlit form for animal prediction
-       
-    # breed_mapping = {numeric_value: breed for numeric_value, breed in enumerate(df_animal['Breed'].unique())}
-    # selected_breed = st.selectbox("Select Breed", list(breed_mapping.values()))
-    # breed = list(breed_mapping.keys())[list(breed_mapping.values()).index(selected_breed)]
-
-    # age = st.slider("Age", 1, 10, 5)
-    # nutrition_protein = st.slider("Nutrition Protein", 0.0, 100.0, 50.0)
-    # nutrition_carbohydrates = st.slider("Nutrition Carbohydrates", 0.0, 100.0, 50.0)
-    # nutrition_minerals = st.slider("Nutrition Minerals", 0.0, 100.0, 50.0)
-    # health_status = st.selectbox("Select Health Status", df_animal['Health_Status'].unique())
-    # lactation_stage = st.selectbox("Select Lactation Stage", df_animal['Lactation_Stage'].unique())
-    # reproductive_status = st.selectbox("Select Reproductive Status", df_animal['Reproductive_Status'].unique())
-    # milking_frequency = st.selectbox("Select Milking Frequency", df_animal['Milking_Frequency'].unique())
-    # env_temperature = st.slider("Environmental Temperature", 0.0, 40.0, 25.0)
-    # env_humidity = st.slider("Environmental Humidity", 0, 100, 60)
-    # env_housing = st.selectbox("Select Environmental Housing", df_animal['Environmental_Housing'].unique())
-    # prev_milk_production = st.slider("Previous Milk Production (Litres)", 0.0, 20.0, 5.0)
-
-    # Streamlit form for animal prediction
-    breed_mapping = {numeric_value: breed for numeric_value, breed in enumerate(df_animal['Breed'].unique())}
-    selected_breed = st.selectbox("Select Breed", list(breed_mapping.values()))
-    breed = list(breed_mapping.keys())[list(breed_mapping.values()).index(selected_breed)]
     
+    # Streamlit form for animal prediction
+    breed_le = LabelEncoder()
+    breed_le.fit(df_animal['Breed'])
+    breed = breed_le.inverse_transform([st.selectbox("Select Breed", breed_le.classes_)])[0]
+
     
     health_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Health_Status'].unique())}
     selected_health_status = st.selectbox("Select Health Status", list(health_status_mapping.values()))
