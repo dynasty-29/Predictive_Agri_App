@@ -137,70 +137,73 @@ def main():
     # Animal prediction section
     st.title("Animal Prediction App")
     
-        # Streamlit form for animal prediction
-    breed_le = LabelEncoder()
-    breed_le.fit(df_animal['Breed'])
-    breed_options = breed_le.classes_
-    selected_breed_index = st.selectbox("Select Breed", range(len(breed_options)), format_func=lambda x: breed_options[x])
-    breed = breed_options[selected_breed_index]
+    left_column, center_column, right_column = st.beta_columns([1, 3, 1])
+    # Streamlit form for animal prediction
+
+    with right_column:
+        breed_le = LabelEncoder()
+        breed_le.fit(df_animal['Breed'])
+        breed_options = breed_le.classes_
+        selected_breed_index = st.selectbox("Select Breed", range(len(breed_options)), format_func=lambda x: breed_options[x])
+        breed = breed_options[selected_breed_index]
+        
+        health_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Health_Status'].unique())}
+        selected_health_status = st.selectbox("Select Health Status", list(health_status_mapping.values()))
+        health_status = list(health_status_mapping.keys())[list(health_status_mapping.values()).index(selected_health_status)]
     
-    health_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Health_Status'].unique())}
-    selected_health_status = st.selectbox("Select Health Status", list(health_status_mapping.values()))
-    health_status = list(health_status_mapping.keys())[list(health_status_mapping.values()).index(selected_health_status)]
-
-    lactation_stage_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Lactation_Stage'].unique())}
-    selected_lactation_stage = st.selectbox("Select Lactation_Stage", list(lactation_stage_mapping.values()))
-    lactation_stage = list(lactation_stage_mapping.keys())[list(lactation_stage_mapping.values()).index(selected_lactation_stage)]
-
-    reproductive_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Reproductive_Status'].unique())}
-    selected_reproductive_status = st.selectbox("Select Reproductive_Status", list(reproductive_status_mapping.values()))
-    reproductive_status = list(reproductive_status_mapping.keys())[list(reproductive_status_mapping.values()).index(selected_reproductive_status)]
-
-    milking_frequency_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Milking_Frequency'].unique())}
-    selected_milking_frequency = st.selectbox("Select Milking_Frequency", list(milking_frequency_mapping.values()))
-    milking_frequency = list(milking_frequency_mapping.keys())[list(milking_frequency_mapping.values()).index(selected_milking_frequency)]
-
-    env_housing_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Environmental_Housing'].unique())}
-    selected_env_housing = st.selectbox("Select Environmental_Housing", list(env_housing_mapping.values()))
-    env_housing = list(env_housing_mapping.keys())[list(env_housing_mapping.values()).index(selected_env_housing)]
-      
-    age = st.slider("Age", 1, 10, 5)
-    nutrition_protein = st.slider("Nutrition Protein", 0.0, 100.0, 50.0)
-    nutrition_carbohydrates = st.slider("Nutrition Carbohydrates", 0.0, 100.0, 50.0)
-    nutrition_minerals = st.slider("Nutrition Minerals", 0.0, 100.0, 50.0)
-    env_temperature = st.slider("Environmental Temperature", 0.0, 40.0, 25.0)
-    env_humidity = st.slider("Environmental Humidity", 0, 100, 60)
-    prev_milk_production = st.slider("Previous Milk Production (Litres)", 0.0, 20.0, 5.0)
+        lactation_stage_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Lactation_Stage'].unique())}
+        selected_lactation_stage = st.selectbox("Select Lactation_Stage", list(lactation_stage_mapping.values()))
+        lactation_stage = list(lactation_stage_mapping.keys())[list(lactation_stage_mapping.values()).index(selected_lactation_stage)]
     
+        reproductive_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Reproductive_Status'].unique())}
+        selected_reproductive_status = st.selectbox("Select Reproductive_Status", list(reproductive_status_mapping.values()))
+        reproductive_status = list(reproductive_status_mapping.keys())[list(reproductive_status_mapping.values()).index(selected_reproductive_status)]
     
+        milking_frequency_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Milking_Frequency'].unique())}
+        selected_milking_frequency = st.selectbox("Select Milking_Frequency", list(milking_frequency_mapping.values()))
+        milking_frequency = list(milking_frequency_mapping.keys())[list(milking_frequency_mapping.values()).index(selected_milking_frequency)]
+    
+        env_housing_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Environmental_Housing'].unique())}
+        selected_env_housing = st.selectbox("Select Environmental_Housing", list(env_housing_mapping.values()))
+        env_housing = list(env_housing_mapping.keys())[list(env_housing_mapping.values()).index(selected_env_housing)]
+          
+        age = st.slider("Age", 1, 10, 5)
+        nutrition_protein = st.slider("Nutrition Protein", 0.0, 100.0, 50.0)
+        nutrition_carbohydrates = st.slider("Nutrition Carbohydrates", 0.0, 100.0, 50.0)
+        nutrition_minerals = st.slider("Nutrition Minerals", 0.0, 100.0, 50.0)
+        env_temperature = st.slider("Environmental Temperature", 0.0, 40.0, 25.0)
+        env_humidity = st.slider("Environmental Humidity", 0, 100, 60)
+        prev_milk_production = st.slider("Previous Milk Production (Litres)", 0.0, 20.0, 5.0)
+        
+    with center_column:
     # Button to trigger animal prediction
-    if st.button("Predict Animal"):
-        # Prepare input data for animal prediction
-        input_data_animal = {
-            "Breed": breed,
-            "Age": age,
-            "Nutrition_Protein": nutrition_protein,
-            "Nutrition_Carbohydrates": nutrition_carbohydrates,
-            "Nutrition_Minerals": nutrition_minerals,
-            "Health_Status": health_status,
-            "Lactation_Stage": lactation_stage,
-            "Reproductive_Status": reproductive_status,
-            "Milking_Frequency": milking_frequency,
-            "Environmental_Temperature": env_temperature,
-            "Environmental_Humidity": env_humidity,
-            "Environmental_Housing": env_housing,
-            "Previous_Milk_Production": prev_milk_production,
-        }
-
-        # Convert input data to a DataFrame for animal prediction
-        input_df_animal = pd.DataFrame([input_data_animal])
-
-        # Make the animal prediction
-        prediction_milk_production = model_animal.predict(input_df_animal)[0]
-
-        # Display the animal prediction at the center
-        st.title("Animal Prediction Result")
-        st.write(f"Predicted Milk Production: {prediction_milk_production:.2f} Litres")
+        if st.button("Predict Animal"):
+            # Prepare input data for animal prediction
+            input_data_animal = {
+                "Breed": breed,
+                "Age": age,
+                "Nutrition_Protein": nutrition_protein,
+                "Nutrition_Carbohydrates": nutrition_carbohydrates,
+                "Nutrition_Minerals": nutrition_minerals,
+                "Health_Status": health_status,
+                "Lactation_Stage": lactation_stage,
+                "Reproductive_Status": reproductive_status,
+                "Milking_Frequency": milking_frequency,
+                "Environmental_Temperature": env_temperature,
+                "Environmental_Humidity": env_humidity,
+                "Environmental_Housing": env_housing,
+                "Previous_Milk_Production": prev_milk_production,
+            }
+    
+            # Convert input data to a DataFrame for animal prediction
+            input_df_animal = pd.DataFrame([input_data_animal])
+    
+            # Make the animal prediction
+            prediction_milk_production = model_animal.predict(input_df_animal)[0]
+    
+            # Display the animal prediction at the center
+            st.title("Animal Prediction Result")
+            st.write(f"Predicted Milk Production: {prediction_milk_production:.2f} Litres")
 
    
 if __name__ == '__main__':
