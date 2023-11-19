@@ -138,7 +138,9 @@ def main():
     # Streamlit form for animal prediction
     breed_le = LabelEncoder()
     breed_le.fit(df_animal['Breed'])
-    breed = breed_le.inverse_transform([st.selectbox("Select Breed", breed_le.classes_)])[0]
+    breed_mapping = {i: breed for i, breed in enumerate(breed_le.classes_)}
+    selected_breed_index = st.selectbox("Select Breed", range(len(breed_le.classes_)), format_func=lambda x: breed_mapping[x])
+    breed = breed_le.transform([breed_mapping[selected_breed_index]])[0]
 
     
     health_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Health_Status'].unique())}
