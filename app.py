@@ -80,15 +80,15 @@ def make_personalized_recommendations(crop_type):
 
 # Streamlit app
 def main():
-    st.set_page_config(page_title='Agricultural Prediction Analytics Dashboard')
+    st.set_page_config(page_title='Animal and Crop Farming Prediction App')
 
-    st.title('Agricultural Prediction Analytics Dashboard')
+    st.title('Animal and Crop Farming Prediction App')
 
     # Streamlit app title for prediction
     st.title("Crop Type Prediction App")
 
     # Streamlit form for environmental data
-    st.subheader("Enter Environmental Data:")
+    st.sidebar.subheader("Enter Environmental Data:")
     temperature = st.slider("Temperature (°C)", 15.0, 39.0, 25.0)
     humidity = st.slider("Humidity (%)", 0, 100, 60)
     precipitation = st.slider("Precipitation", 0.0, 100.0, 50.0)
@@ -136,9 +136,10 @@ def main():
     st.title("Animal Prediction App")
     
         # Streamlit form for animal prediction
-    breed_options = df_animal['Breed'].unique()
-    breed_mapping = {i: breed for i, breed in enumerate(breed_options)}
-    selected_breed_index = st.selectbox("Select Breed", range(len(breed_mapping)), format_func=lambda x: breed_mapping[x])
+    breed_le = LabelEncoder()
+    breed_le.fit(df_animal['Breed'])
+    breed_options = breed_le.classes_
+    selected_breed_index = st.selectbox("Select Breed", range(len(breed_options)), format_func=lambda x: breed_options[x])
     breed = breed_options[selected_breed_index]
     
     health_status_mapping = {numeric_value: status for numeric_value, status in enumerate(df_animal['Health_Status'].unique())}
