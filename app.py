@@ -35,6 +35,29 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 model = GradientBoostingClassifier()
 model.fit(X_train, y_train)
 
+# Load animal data
+df_animal = pd.read_csv('synthetic_Animal_data.csv')
+
+# Create a LabelEncoder object for animals
+le_animal = LabelEncoder()
+
+# Encode categorical features for animals
+categorical_features_animal = ['Breed', 'Health_Status', 'Lactation_Stage', 'Reproductive_Status', 'Milking_Frequency', 'Environmental_Housing']
+for feature in categorical_features_animal:
+    df_animal[feature] = le_animal.fit_transform(df_animal[feature])
+
+# Split animal data into features and target variable
+X_animal = df_animal.drop('Milk_Production', axis=1)
+y_animal = df_animal['Milk_Production']
+
+# Split animal data into training and testing sets
+X_train_animal, X_test_animal, y_train_animal, y_test_animal = train_test_split(X_animal, y_animal, test_size=0.2, random_state=42)
+
+# Train the animal gradient boosting model
+model_animal = GradientBoostingRegressor()
+model_animal.fit(X_train_animal, y_train_animal)
+
+
 # Function to plot distribution of crops by type
 def plot_crops_by_type():
     # Decode the encoded Crop_Type back to original labels
@@ -48,7 +71,15 @@ def plot_crops_by_type():
     st.pyplot()  # Display the plot in Streamlit
     st.set_option('deprecation.showPyplotGlobalUse', False)
 
-
+# Function to plot distribution of milk production
+def plot_milk_production_distribution():
+    plt.hist(df_animal['Milk_Production'], bins=20, color='blue', edgecolor='black')
+    plt.xlabel('Milk Production (Litres)')
+    plt.ylabel('Count')
+    plt.title('Distribution of Milk Production')
+    st.pyplot()  # Display the plot in Streamlit
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    
 # Function to make personalized recommendations
 def make_personalized_recommendations(crop_type):
     # Check if the crop type exists in the dataset
@@ -124,6 +155,55 @@ def main():
             st.write(f"Predicted Crop Type: {prediction_name}")
         else:
             st.write("Input data is empty. Please provide values.")
+
+# Animal prediction section
+    st.title("Animal Prediction App")
+
+    # Streamlit form for animal prediction
+    breed = st.selectbox("Select Breed", df_animal['Breed'].unique())
+    age = st.slider("Age", 1, 10, 5)
+    nutrition_protein = st.slider("Nutrition Protein", 0.0, 100.0, 50.0)
+    nutrition_carbohydrates = st.slider("Nutrition Carbohydrates", 0.0, 100.0, 50.0)
+    nutrition_minerals = st.slider("Nutrition Minerals", 0.0, 100.0, 50.0)
+    health_status = st.selectbox("Select Health Status", df_animal['Health_Status'].unique())
+    lactation_stage = st.selectbox("Select Lactation Stage", df_animal['Lactation_Stage'].unique())
+    reproductive_status = st.selectbox("Select Reproductive Status", df_animal['Reproductive_Status'].unique())
+    milking_frequency = st.selectbox("Select Milking Frequency", df_animal['Milking_Frequency'].unique())
+    env_temperature = st.slider("Environmental Temperature", 0.0, 40.0, 25.0)
+    env_humidity = st.slider("Environmental Humidity", 0, 100, 60)
+    env_housing = st.selectbox("Select Environmental Housing", df_animal['Environmental_Housing'].unique())
+    prev_milk_production = st.slider("Previous Milk Production (Litres)", 0.0, 20.0, 5.0)
+
+    # Button to trigger animal prediction
+    if st.button("Predict Milk Production"):
+        # Prepare input data for animal prediction
+        input_data_animal = {
+            "Breed": breed,
+            "Age": age,
+            "Nutrition_Protein": nutrition_protein,
+            "Nutrition_Carbohydrates": nutrition_carbohydrates,
+            "Nutrition_Minerals": nutrition_minerals,
+            "Health_Status": health_status,
+            "Lactation_Stage": lactation_stage,
+            "Reproductive_Status": reproductive_status,
+            "Milking_Frequency": milking_frequency,
+            "Environmental_Temperature": env_temperature,
+            "Environmental_Humidity": env_humidity,
+            "Environmental_Housing": env_housing,
+            "Previous_Milk_Production": prev_milk_production,
+        }
+
+        # Convert input data to a DataFrame for animal prediction
+        input_df_animal = pd.DataFrame([input_data_animal])
+
+        # Make the animal prediction
+        prediction_milk_production = model_animal.predict(input_df_animal)[0]
+
+        st.write(f"Predicted Milk Production: {prediction_milk_production:.2f} Litres")
+
+    # Display distribution of milk production
+    st.header('Distribution of Milk Production')
+    plot_milk_production_distribution()
 
 if __name__ == '__main__':
     main()
