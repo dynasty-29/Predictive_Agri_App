@@ -95,7 +95,7 @@ def main():
     potassium_level = st.slider("Potassium Level", 0, 100, 50)
     ph_level = st.slider("Soil pH", 0.0, 14.0, 7.0)
 
-    # Button to trigger prediction
+        # Button to trigger prediction
     if st.button("Predict Crop"):
         # Prepare input data for prediction
         input_data = {
@@ -109,18 +109,21 @@ def main():
             "Potassium_Content": potassium_level,
             "Soil_pH": ph_level,
         }
-
-    # Convert input data to a DataFrame
-    input_df = pd.DataFrame([input_data])
-
-    # Make the prediction
-    prediction_numeric = model.predict(input_df)[0]
-
-    # Convert the numeric prediction back to the original crop type name
-    prediction_name = le.inverse_transform([prediction_numeric])[0]
     
-    st.write(f"Predicted Crop Type: {prediction_name}")
-
+        # Ensure that input_data is not empty or None
+        if input_data:
+            # Convert input data to a DataFrame
+            input_df = pd.DataFrame([input_data])
+    
+            # Make the prediction
+            prediction_numeric = model.predict(input_df)[0]
+    
+            # Convert the numeric prediction back to the original crop type name
+            prediction_name = le.inverse_transform([prediction_numeric])[0]
+        
+            st.write(f"Predicted Crop Type: {prediction_name}")
+        else:
+            st.write("Input data is empty. Please provide values.")
 
 if __name__ == '__main__':
     main()
