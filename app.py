@@ -36,6 +36,9 @@ model.fit(X_train, y_train)
 
 # Function to plot distribution of crops by type
 def plot_crops_by_type():
+    # Decode the encoded Crop_Type back to original labels
+    df['Crop_Type'] = le.inverse_transform(df['Crop_Type'])
+
     crop_type_counts = df['Crop_Type'].value_counts()
     crop_type_counts.plot(kind='bar', color='blue')
     plt.xlabel('Crop Type')
@@ -43,6 +46,7 @@ def plot_crops_by_type():
     plt.title('Distribution of Crops by Type')
     st.pyplot()  # Display the plot in Streamlit
     st.set_option('deprecation.showPyplotGlobalUse', False)
+
 
 # Function to make personalized recommendations
 def make_personalized_recommendations(crop_type):
