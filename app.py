@@ -91,15 +91,15 @@ def main():
     st.sidebar.subheader("Enter Environmental Data:")
     temperature = st.sidebar.slider("Temperature (°C)", 15.0, 39.0, 25.0)
     humidity = st.sidebar.slider("Humidity (%)", 0, 100, 60)
-    precipitation = st.sidebar.slider("Precipitation", 0.0, 100.0, 50.0)
-    wind_speed = st.sidebar.slider("Wind Speed", 0.0, 20.0, 10.0)
-    solar_radiation = st.sidebar.slider("Solar Radiation", 0.0, 2000.0, 800.0)
+    precipitation = st.sidebar.slider("Precipitation (mm)", 0.0, 100.0, 50.0)
+    wind_speed = st.sidebar.slider("Wind Speed (km/h)", 0.0, 20.0, 10.0)
+    solar_radiation = st.sidebar.slider("Solar Radiation (W/m^2)", 0.0, 2000.0, 800.0)
 
     # Streamlit form for optional soil nutrient levels
     st.sidebar.subheader("Enter Optional Soil Nutrient Levels (Leave blank if not available):")
-    nitrogen_level = st.sidebar.slider("Nitrogen Level", 0, 100, 50)
-    phosphorus_level = st.sidebar.slider("Phosphorus Level", 0, 100, 50)
-    potassium_level = st.sidebar.slider("Potassium Level", 0, 100, 50)
+    nitrogen_level = st.sidebar.slider("Nitrogen Level (%)", 0, 100, 50)
+    phosphorus_level = st.sidebar.slider("Phosphorus Level (%)", 0, 100, 50)
+    potassium_level = st.sidebar.slider("Potassium Level (%)", 0, 100, 50)
     ph_level = st.sidebar.slider("Soil pH", 0.0, 14.0, 7.0)
 
     # Button to trigger crop prediction
