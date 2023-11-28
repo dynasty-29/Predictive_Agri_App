@@ -93,7 +93,7 @@ def main():
     humidity = st.sidebar.slider("Humidity (%)", 0, 100, 60)
     precipitation = st.sidebar.slider("Precipitation (mm)", 0.0, 100.0, 50.0)
     wind_speed = st.sidebar.slider("Wind Speed (km/h)", 0.0, 20.0, 10.0)
-    solar_radiation = st.sidebar.slider("Solar Radiation (W/m^2)", 0.0, 2000.0, 800.0)
+    solar_radiation = st.sidebar.slider("Solar Radiation (W/m²)", 0.0, 2000.0, 800.0)
 
     # Streamlit form for optional soil nutrient levels
     st.sidebar.subheader("Enter Optional Soil Nutrient Levels (Leave blank if not available):")
