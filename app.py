@@ -100,7 +100,7 @@ def main():
     nitrogen_level = st.sidebar.slider("Nitrogen Level (%)", 0, 100, 50)
     phosphorus_level = st.sidebar.slider("Phosphorus Level (%)", 0, 100, 50)
     potassium_level = st.sidebar.slider("Potassium Level (%)", 0, 100, 50)
-    ph_level = st.sidebar.slider("Soil pH", 0.0, 14.0, 7.0)
+    ph_level = st.sidebar.slider("Soil pH (0 to 14)", 0.0, 14.0, 7.0)
 
     # Button to trigger crop prediction
     if st.button("Predict Crop"):
